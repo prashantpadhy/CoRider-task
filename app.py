@@ -65,12 +65,20 @@ class UserResource(Resource):
         else:
             return {'message': 'User not found'}, 404
 
+class UserAgeResource(Resource):
+    def get(self, user_id, age):
+        # Implement the logic to handle the user_id and age
+        # Return the response accordingly
+        return {'message': f'User ID: {user_id}, Age: {age}'}
+
+
 class WelcomeScreen(Resource):
     def get(self):
         return f"Welcome to the crud app"
     
 api.add_resource(UserResource, '/users', '/users/<string:user_id>')
 api.add_resource(WelcomeScreen, '/')
+api.add_resource(UserAgeResource, '/users/<string:user_id>/<int:age>')
 
 if __name__ == '__main__':
     app.run(debug=True)
