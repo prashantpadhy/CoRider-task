@@ -12,7 +12,10 @@ users_collection = db['users']
 
 class UserResource(Resource):
     
-    def get(self):
+    def get(self, user_id=None):
+        if user_id:
+            return self.get_user(user_id)
+        else:
             return self.get_all_users()
 
     def get_user(self, user_id):
