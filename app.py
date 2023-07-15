@@ -12,16 +12,19 @@ users_collection = db['users']
 
 class UserResource(Resource):
     
-    def get(self, user_id=None):
-        if user_id:
-            user = users_collection.find_one({'id': user_id}, {'_id': 0})
-            if user:
-                return user
-            else:
-                return {'message': 'User not found'}, 404
+    def get(self):
+            return self.get_all_users()
+
+    def get_user(self, user_id):
+        user = users_collection.find_one({'id': user_id}, {'_id': 0})
+        if user:
+            return user
         else:
-            users = list(users_collection.find({}, {'_id': 0}))
-            return users
+            return {'message': 'User not found'}, 404
+
+    def get_all_users(self):
+        users = list(users_collection.find({}, {'_id': 0}))
+        return users
 
     def post(self):
         parser = reqparse.RequestParser()
